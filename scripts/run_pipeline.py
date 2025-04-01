@@ -28,5 +28,8 @@ def main():
     logging.info("Training the model...")
     train_model()
 
+    # Messaggio di fine run
+    logging.info("Finito!!")
+
 if __name__ == "__main__":
     main()

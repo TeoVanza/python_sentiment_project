@@ -4,6 +4,7 @@ import pandas as pd
 import numpy as np
 import pickle
 from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
@@ -27,7 +28,7 @@ def load_data():
 
 def train_model(grid_search=False):
     """Trains a Random Forest model with GridSearchCV and saves evaluation metrics to CSV."""
-    df = load_data().head(100)
+    df = load_data().head(30000)
 
     # Save original indices before vectorization
     df_indices = df.index
@@ -65,10 +66,20 @@ def train_model(grid_search=False):
         rf.fit(X_train, y_train)
         y_pred = rf.predict(X_test)
 
-    # Saving model in pickle format
-    logging.info('saving model...')
+    # modello logistico 
+    clf=LogisticRegression(max_iter=1000)
+    clf.fit(X_train, y_train)
+
+
+    # Saving random forest in pickle format
+    logging.info('saving random forest...')
     with open(os.path.join(config.MODELS_PATH, "random_forest.pickle"), "wb") as file:
         pickle.dump(rf,file)
+    
+    # saving logistic model in pickle format
+    logging.info('saving logistic model...')
+    with open(os.path.join(config.MODELS_PATH, "logistic.pickle"), "wb") as file:
+        pickle.dump(clf,file)
 
     # Create a DataFrame for the test set with predictions
     test_df = df.loc[test_idx].copy()  # Copy test set rows

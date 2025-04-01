@@ -13,11 +13,18 @@ def load_data():
     logging.info('Opening Excel Files...')
     e1 = pd.read_excel(os.path.join(config.RAW_DATA_PATH,
                     'earth_day_tweets_sentiment_50k_(1).xlsx'))
+    e1.drop_duplicates(inplace=True)
+
     e2 = pd.read_excel(os.path.join(config.RAW_DATA_PATH,
                     'earth_day_tweets_sentiment_50k_(2).xlsx'))
+    e2.drop_duplicates(inplace=True)
+
     fifa = pd.read_excel(os.path.join(config.RAW_DATA_PATH,
                         'fifa_world_cup_2022_tweets_sentiment_22k.xlsx'))
+    fifa.drop_duplicates(inplace=True)
+
     generic = pd.read_excel(os.path.join(config.RAW_DATA_PATH, 'generic_27k.xlsx'))
+    generic.drop_duplicates(inplace=True)
 
     e1 = e1[['text', 'sentiment']]
     e2 = e2[['text', 'sentiment']]
