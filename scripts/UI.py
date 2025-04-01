@@ -6,6 +6,7 @@ from src import config
 import streamlit as st
 import pickle
 
+# Per far runnare il programma bisogna usare questa linea di codice nel terminal: streamlit run 'nome file'
 
 with open(os.path.join(config.MODELS_PATH, "random_forest.pickle"), "rb") as file:
         model = pickle.load(file)
